@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+  <schema id="org.gnome.shell.extensions.hadith" path="/org/gnome/shell/extensions/hadith/">
+
+    <!-- Language Selection -->
+    <key name="enabled-languages" type="as">
+      <default>['tr']</default>
+      <summary>Enabled Languages</summary>
+      <description>List of enabled language codes: 'ar' (Arabic), 'tr' (Turkish), 'en' (English), 'de' (German), 'fr' (French)</description>
+    </key>
+
+    <!-- Display Settings -->
+    <key name="show-arabic" type="b">
+      <default>false</default>
+      <summary>Show Arabic Text</summary>
+      <description>Display hadith in Arabic</description>
+    </key>
+
+    <key name="show-source" type="b">
+      <default>true</default>
+      <summary>Show Source Information</summary>
+      <description>Display the source of the hadith (Bukhari, Muslim, etc.)</description>
+    </key>
+
+    <key name="show-narrator" type="b">
+      <default>false</default>
+      <summary>Show Narrator Information</summary>
+      <description>Display who narrated the hadith (Companion name)</description>
+    </key>
+
+    <!-- Refresh Settings -->
+    <key name="refresh-interval" type="i">
+      <default>60</default>
+      <range min="5" max="1440"/>
+      <summary>Refresh Interval</summary>
+      <description>Time in minutes between hadith changes (5 min - 24 hours)</description>
+    </key>
+
+    <!-- Position Settings -->
+    <key name="position-x" type="i">
+      <default>100</default>
+      <summary>Horizontal Position</summary>
+      <description>X coordinate of hadith display on desktop</description>
+    </key>
+
+    <key name="position-y" type="i">
+      <default>100</default>
+      <summary>Vertical Position</summary>
+      <description>Y coordinate of hadith display on desktop</description>
+    </key>
+
+    <!-- Text Appearance -->
+    <key name="font-size" type="i">
+      <default>16</default>
+      <range min="8" max="48"/>
+      <summary>Font Size</summary>
+      <description>Font size for hadith text</description>
+    </key>
+
+    <key name="max-width" type="i">
+      <default>1000</default>
+      <range min="400" max="2000"/>
+      <summary>Maximum Width</summary>
+      <description>Maximum width of hadith display in pixels (400-2000)</description>
+    </key>
+
+    <!-- Background Colors -->
+    <key name="background-color" type="s">
+      <default>'#2b2b2b'</default>
+      <summary>Background Color</summary>
+      <description>Background color in hex format</description>
+    </key>
+
+    <key name="arabic-background-color" type="s">
+      <default>'#1a1a1a'</default>
+      <summary>Arabic Text Background Color</summary>
+      <description>Background color for Arabic text in hex format (default: darker gray)</description>
+    </key>
+
+    <key name="background-opacity" type="d">
+      <default>0.85</default>
+      <range min="0.0" max="1.0"/>
+      <summary>Background Opacity</summary>
+      <description>Opacity of the background (0.0 = transparent, 1.0 = opaque)</description>
+    </key>
+
+    <!-- Language Text Colors -->
+    <key name="arabic-color" type="s">
+      <default>'#FFD700'</default>
+      <summary>Arabic Text Color</summary>
+      <description>Color for Arabic text in hex format (default: gold)</description>
+    </key>
+
+    <key name="turkish-color" type="s">
+      <default>'#FFFFFF'</default>
+      <summary>Turkish Text Color</summary>
+      <description>Color for Turkish text in hex format (default: white)</description>
+    </key>
+
+    <key name="english-color" type="s">
+      <default>'#87CEEB'</default>
+      <summary>English Text Color</summary>
+      <description>Color for English text in hex format (default: sky blue)</description>
+    </key>
+
+    <key name="german-color" type="s">
+      <default>'#90EE90'</default>
+      <summary>German Text Color</summary>
+      <description>Color for German text in hex format (default: light green)</description>
+    </key>
+
+    <key name="french-color" type="s">
+      <default>'#DDA0DD'</default>
+      <summary>French Text Color</summary>
+      <description>Color for French text in hex format (default: plum)</description>
+    </key>
+
+    <key name="source-color" type="s">
+      <default>'#C0C0C0'</default>
+      <summary>Source/Narrator Text Color</summary>
+      <description>Color for source and narrator information (default: silver)</description>
+    </key>
+
+    <!-- Layer Settings -->
+    <key name="always-on-top" type="b">
+      <default>false</default>
+      <summary>Always Show Above Windows</summary>
+      <description>Keep hadith display above all windows (default: false, stays on desktop)</description>
+    </key>
+
+  </schema>
+</schemalist>

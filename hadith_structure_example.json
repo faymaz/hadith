@@ -1,0 +1,35 @@
+[
+  {
+    "number": 1,
+    "arabic": "بِسْمِ اللّٰهِ الرَّحْمَانِ الرَّحِيمِ مِفْتَاحُ كُلِّ كِتَابٍ",
+    "turkish": "Bütün semâvî kitâbların anahtarı, Besmele-i Şerîfe'dir.",
+    "english": "The key to all heavenly books is the Basmala (In the name of Allah, the Most Gracious, the Most Merciful).",
+    "german": "Der Schlüssel zu allen himmlischen Büchern ist die Basmala (Im Namen Allahs, des Allerbarmers, des Barmherzigen).",
+    "french": "La clé de tous les livres célestes est la Basmala (Au nom d'Allah, le Tout Miséricordieux, le Très Miséricordieux).",
+    "source": "Câmi'u's-sağîr",
+    "narrator": "",
+    "chain": ""
+  },
+  {
+    "number": 2,
+    "arabic": "اَلْحَمْدُ عَلٰي النِّعْمَةِ أَمَانٌ لِزَوَالِهِ",
+    "turkish": "Cenâb-ı Hakk'ın ni'metlerine şükür, o ni'metin zevâline (yok olmasına) emândır.",
+    "english": "Gratitude for Allah's blessings is a safeguard against their loss.",
+    "german": "Dankbarkeit für Allahs Segnungen ist ein Schutz vor deren Verlust.",
+    "french": "La gratitude pour les bienfaits d'Allah est une protection contre leur perte.",
+    "source": "Deylemî",
+    "narrator": "",
+    "chain": ""
+  },
+  {
+    "number": 5,
+    "arabic": "اِنَّمَا الْأَعْمَالُ بِالنِّيّٰاتِ",
+    "turkish": "Ameller niyetlere göredir.",
+    "english": "Actions are judged by intentions.",
+    "german": "Taten werden nach den Absichten beurteilt.",
+    "french": "Les actions sont jugées selon les intentions.",
+    "source": "Buhari, Muslim",
+    "narrator": "Umar ibn al-Khattab (r.a.)",
+    "chain": "Sahih al-Bukhari"
+  }
+]

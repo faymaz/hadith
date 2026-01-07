@@ -1,0 +1,21 @@
+{
+  "description": " GNOME Shell extension that displays random hadiths on your desktop with multi-language support.",
+  "donations": {
+    "buymeacoffee": "fethiaymazb",
+    "github": "faymaz"
+  },
+  "gettext-domain": "hadith",
+  "icon": "icons/hadith.png",
+  "name": "Hadith",
+  "settings-schema": "org.gnome.shell.extensions.hadith",
+  "shell-version": [
+    "45",
+    "46",
+    "47",
+    "48",
+    "49"
+  ],
+  "url": "https://github.com/faymaz/hadith",
+  "uuid": "hadith@faymaz.github.com",
+  "version": 1
+}

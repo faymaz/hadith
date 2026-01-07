@@ -4,7 +4,7 @@
 
 ![Hadith - 1](img/hadith.png)
 
-A GNOME Shell extension that displays random hadiths on your desktop with multi-language support.
+A GNOME Shell extension that displays random Hadiths on your desktop with multi-language support.
 
 ![Hadith - 2](img/hadith_1.png)
 ## Features

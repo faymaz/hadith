@@ -16,7 +16,7 @@ A GNOME Shell extension that displays random Hadiths on your desktop with multi-
 ![Hadith Settings menu - 2](img/hadith_settingsmenu_2.png)
 
 - 🌍 **Multi-language Support**: Arabic, Turkish, English, German, and French
-- 📚 **50 Hadiths**: Authentic hadiths from reliable sources (Bukhari, Muslim, etc.)
+- 📚 **50 Hadiths**: Authentic Hadiths from reliable sources (Bukhari, Muslim, etc.)
 - 🔄 **Auto-refresh**: Configurable refresh interval (5 minutes to 24 hours)
 - ⚙️ **Customizable Display**:
   - Toggle individual languages on/off

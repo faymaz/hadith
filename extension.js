@@ -16,7 +16,7 @@ class HadithLabel extends St.Label {
         super._init({
             x_align: Clutter.ActorAlign.START,
             y_align: Clutter.ActorAlign.START,
-            reactive: true, // Enable mouse events
+            reactive: true,
         });
         this.clutter_text.use_markup = true;
         this.clutter_text.line_wrap = true;
@@ -24,7 +24,7 @@ class HadithLabel extends St.Label {
             this.clutter_text.set_markup(text);
         }
 
-        // Drag and drop variables
+       
         this._dragging = false;
         this._dragStartX = 0;
         this._dragStartY = 0;
@@ -40,29 +40,29 @@ class HadithIndicator extends PanelMenu.Button {
 
         this._extension = extension;
 
-        // Create icon for panel
+       
         const icon = new St.Icon({
             gicon: Gio.icon_new_for_string(extension.path + '/icons/icon.svg'),
             style_class: 'system-status-icon',
         });
         this.add_child(icon);
 
-        // Create menu items
+       
         this._createMenu();
     }
 
     _createMenu() {
-        // Refresh menu item
+       
         const refreshItem = new PopupMenu.PopupMenuItem('Refresh Hadith');
         refreshItem.connect('activate', () => {
             this._extension._displayRandomHadith();
         });
         this.menu.addMenuItem(refreshItem);
 
-        // Separator
+       
         this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
 
-        // Settings menu item
+       
         const settingsItem = new PopupMenu.PopupMenuItem('Settings');
         settingsItem.connect('activate', () => {
             try {
@@ -86,49 +86,49 @@ export default class HadithExtension extends Extension {
     }
 
     enable() {
-        // Load settings
+       
         this._settings = this.getSettings();
 
-        // Load hadith data
+       
         this._loadHadithData();
 
-        // Create label
+       
         this._hadithLabel = new HadithLabel('');
         this._updateLabelStyle();
 
-        // Setup drag and drop
+       
         this._setupDragAndDrop();
 
-        // Add to appropriate layer based on settings
+       
         this._updateLayer();
 
-        // Position the label
+       
         this._updatePosition();
 
-        // Display initial hadith
+       
         this._displayRandomHadith();
 
-        // Setup refresh timer
+       
         this._setupRefreshTimer();
 
-        // Connect to settings changes
+       
         this._settings.connect('changed', () => {
             this._onSettingsChanged();
         });
 
-        // Create and add panel indicator
+       
         this._indicator = new HadithIndicator(this);
         Main.panel.addToStatusArea('hadith-indicator', this._indicator);
     }
 
     disable() {
-        // Remove timeout
+       
         if (this._timeout) {
             GLib.Source.remove(this._timeout);
             this._timeout = null;
         }
 
-        // Remove label
+       
         if (this._hadithLabel) {
             const parent = this._hadithLabel.get_parent();
             if (parent) {
@@ -138,13 +138,13 @@ export default class HadithExtension extends Extension {
             this._hadithLabel = null;
         }
 
-        // Remove indicator
+       
         if (this._indicator) {
             this._indicator.destroy();
             this._indicator = null;
         }
 
-        // Cleanup settings
+       
         this._settings = null;
         this._hadiths = [];
     }
@@ -180,16 +180,16 @@ export default class HadithExtension extends Extension {
             return;
         }
 
-        // Select random hadith
+       
         const randomIndex = Math.floor(Math.random() * this._hadiths.length);
         const hadith = this._hadiths[randomIndex];
 
-        // Get enabled languages
+       
         const enabledLanguages = this._settings.get_strv('enabled-languages');
         const showSource = this._settings.get_boolean('show-source');
         const showNarrator = this._settings.get_boolean('show-narrator');
 
-        // Get colors
+       
         const arabicColor = this._settings.get_string('arabic-color');
         const arabicBgColor = this._settings.get_string('arabic-background-color');
         const turkishColor = this._settings.get_string('turkish-color');
@@ -199,21 +199,21 @@ export default class HadithExtension extends Extension {
         const sourceColor = this._settings.get_string('source-color');
         const fontSize = this._settings.get_int('font-size');
 
-        // Build hadith markup
+       
         let hadithMarkup = '';
-        const LTR_MARK = '\u200E'; // Unicode Left-to-Right Mark (defined once at top)
+        const LTR_MARK = '\u200E';
 
-        // Add Arabic FIRST (will be black due to CSS override, but that's acceptable)
-        // Arabic is ALWAYS shown to prevent layout shifting
+       
+       
         if (hadith.arabic) {
             const escapedText = this._escapeMarkup(hadith.arabic);
             const arabicSize = Math.round(fontSize * 1.1 * 1024);
-            // NOTE: First line will be black due to GNOME Shell theme CSS override
-            // Add separate background color for Arabic text
+           
+           
             hadithMarkup += `<span size="${arabicSize}" background="${arabicBgColor}">${escapedText}</span>\n\n`;
         }
 
-        // Add translations in fixed order: English, Turkish, German, French
+       
         const languageOrder = [
             { code: 'en', field: 'english', color: englishColor },
             { code: 'tr', field: 'turkish', color: turkishColor },
@@ -223,38 +223,38 @@ export default class HadithExtension extends Extension {
 
         const normalSize = Math.round(fontSize * 1024);
         languageOrder.forEach((langInfo) => {
-            // Check if this language is enabled
+           
             if (enabledLanguages.includes(langInfo.code) && hadith[langInfo.field]) {
-                // Skip if it's a placeholder
+               
                 if (hadith[langInfo.field] !== 'Not available on the source page') {
                     const escapedText = this._escapeMarkup(hadith[langInfo.field]);
-                    // Add multiple LTR marks to force left-to-right direction strongly
+                   
                     hadithMarkup += `<span foreground="${langInfo.color}"><span size="${normalSize}" foreground="${langInfo.color}">${LTR_MARK}${LTR_MARK}${escapedText}${LTR_MARK}</span></span>\n\n`;
                 }
             }
         });
 
-        // Check if we have any content
+       
         if (hadithMarkup.trim().length === 0) {
             hadithMarkup = '<span foreground="#FF0000">Please enable at least one language in settings</span>';
         }
 
-        // Add narrator if enabled and available
+       
         const metaSize = Math.round((fontSize - 2) * 1024);
         if (showNarrator && hadith.narrator && hadith.narrator.length > 0) {
             const escapedNarrator = this._escapeMarkup(hadith.narrator);
-            // Multiple LTR marks + LTR text to force left alignment
+           
             hadithMarkup += `\n<span foreground="${sourceColor}"><span size="${metaSize}" foreground="${sourceColor}">${LTR_MARK}${LTR_MARK}${LTR_MARK}📖 Narrator: ${escapedNarrator}${LTR_MARK}</span></span>`;
         }
 
-        // Add source if enabled
+       
         if (showSource && hadith.source) {
             const escapedSource = this._escapeMarkup(hadith.source);
-            // Multiple LTR marks + LTR text to force left alignment
+           
             hadithMarkup += `\n<span foreground="${sourceColor}"><span size="${metaSize}" foreground="${sourceColor}">${LTR_MARK}${LTR_MARK}${LTR_MARK}📚 Source: ${escapedSource}${LTR_MARK}</span></span>`;
         }
 
-        // Apply the final markup
+       
         this._hadithLabel.clutter_text.set_markup(hadithMarkup.trim());
     }
 
@@ -264,14 +264,14 @@ export default class HadithExtension extends Extension {
         const bgColor = this._settings.get_string('background-color');
         const bgOpacity = this._settings.get_double('background-opacity');
 
-        // Parse hex color and add opacity
+       
         const hexColor = bgColor.replace('#', '');
         const r = parseInt(hexColor.substr(0, 2), 16);
         const g = parseInt(hexColor.substr(2, 2), 16);
         const b = parseInt(hexColor.substr(4, 2), 16);
         const bgColorRGBA = `rgba(${r}, ${g}, ${b}, ${bgOpacity})`;
 
-        // Set style with explicit color reset to prevent theme override
+       
         this._hadithLabel.set_style(
             `background-color: ${bgColorRGBA}; ` +
             `padding: 20px; ` +
@@ -291,27 +291,27 @@ export default class HadithExtension extends Extension {
     _updateLayer() {
         const alwaysOnTop = this._settings.get_boolean('always-on-top');
 
-        // First, safely remove from any current parent
+       
         const parent = this._hadithLabel.get_parent();
         if (parent) {
             parent.remove_child(this._hadithLabel);
         }
 
-        // Remove from chrome tracking if it was tracked
+       
         try {
             Main.layoutManager._untrackActor(this._hadithLabel);
         } catch (e) {
-            // Ignore if not tracked
+           
         }
 
         if (alwaysOnTop) {
-            // Add to chrome layer (above windows)
+           
             Main.layoutManager.addChrome(this._hadithLabel, {
                 affectsInputRegion: false,
                 trackFullscreen: false
             });
         } else {
-            // Add to background group (below windows, above wallpaper)
+           
             Main.layoutManager._backgroundGroup.add_child(this._hadithLabel);
         }
     }
@@ -322,7 +322,7 @@ export default class HadithExtension extends Extension {
         }
 
         const interval = this._settings.get_int('refresh-interval');
-        const intervalMs = interval * 60 * 1000; // Convert minutes to milliseconds
+        const intervalMs = interval * 60 * 1000;
 
         this._timeout = GLib.timeout_add(GLib.PRIORITY_DEFAULT, intervalMs, () => {
             this._displayRandomHadith();
@@ -331,14 +331,14 @@ export default class HadithExtension extends Extension {
     }
 
     _setupDragAndDrop() {
-        // Connect mouse button press event (start dragging)
+       
         this._hadithLabel.connect('button-press-event', (actor, event) => {
-            if (event.get_button() === 1) { // Left mouse button
+            if (event.get_button() === 1) {
                 this._hadithLabel._dragging = true;
                 [this._hadithLabel._dragStartX, this._hadithLabel._dragStartY] = event.get_coords();
                 [this._hadithLabel._widgetStartX, this._hadithLabel._widgetStartY] = actor.get_position();
 
-                // Change cursor to indicate dragging
+               
                 global.display.set_cursor(Meta.Cursor.MOVE_OR_RESIZE_WINDOW);
 
                 return Clutter.EVENT_STOP;
@@ -346,7 +346,7 @@ export default class HadithExtension extends Extension {
             return Clutter.EVENT_PROPAGATE;
         });
 
-        // Connect mouse motion event (during dragging)
+       
         this._hadithLabel.connect('motion-event', (actor, event) => {
             if (this._hadithLabel._dragging) {
                 const [currentX, currentY] = event.get_coords();
@@ -363,15 +363,15 @@ export default class HadithExtension extends Extension {
             return Clutter.EVENT_PROPAGATE;
         });
 
-        // Connect mouse button release event (stop dragging)
+       
         this._hadithLabel.connect('button-release-event', (actor, event) => {
             if (event.get_button() === 1 && this._hadithLabel._dragging) {
                 this._hadithLabel._dragging = false;
 
-                // Reset cursor
+               
                 global.display.set_cursor(Meta.Cursor.DEFAULT);
 
-                // Save new position to settings
+               
                 const [newX, newY] = actor.get_position();
                 this._settings.set_int('position-x', Math.round(newX));
                 this._settings.set_int('position-y', Math.round(newY));

@@ -9,7 +9,7 @@ export default class HadithPreferences extends ExtensionPreferences {
     fillPreferencesWindow(window) {
         const settings = this.getSettings();
 
-        // Language Selection Page
+       
         const languagePage = new Adw.PreferencesPage({
             title: 'Languages',
             icon_name: 'preferences-desktop-locale-symbolic',
@@ -22,10 +22,10 @@ export default class HadithPreferences extends ExtensionPreferences {
         });
         languagePage.add(languageGroup);
 
-        // Note: Arabic is always displayed and cannot be disabled
-        // This prevents layout shifting when toggling languages
+       
+       
 
-        // Language toggles
+       
         const languages = [
             { code: 'tr', name: 'Turkish', subtitle: 'Türkçe' },
             { code: 'en', name: 'English', subtitle: 'English' },
@@ -50,7 +50,7 @@ export default class HadithPreferences extends ExtensionPreferences {
             languageGroup.add(row);
         });
 
-        // Display Settings Page
+       
         const displayPage = new Adw.PreferencesPage({
             title: 'Display',
             icon_name: 'preferences-desktop-display-symbolic',
@@ -62,7 +62,7 @@ export default class HadithPreferences extends ExtensionPreferences {
         });
         displayPage.add(displayGroup);
 
-        // Show Source
+       
         const sourceRow = new Adw.ActionRow({
             title: 'Show Source',
             subtitle: 'Display the source of the hadith (Bukhari, Muslim, etc.)',
@@ -76,7 +76,7 @@ export default class HadithPreferences extends ExtensionPreferences {
         sourceRow.activatable_widget = sourceSwitch;
         displayGroup.add(sourceRow);
 
-        // Show Narrator
+       
         const narratorRow = new Adw.ActionRow({
             title: 'Show Narrator',
             subtitle: 'Display who narrated the hadith',
@@ -90,7 +90,7 @@ export default class HadithPreferences extends ExtensionPreferences {
         narratorRow.activatable_widget = narratorSwitch;
         displayGroup.add(narratorRow);
 
-        // Refresh Interval
+       
         const refreshRow = new Adw.ActionRow({
             title: 'Refresh Interval',
             subtitle: 'Time in minutes between hadith changes',
@@ -109,7 +109,7 @@ export default class HadithPreferences extends ExtensionPreferences {
         refreshRow.add_suffix(refreshSpin);
         displayGroup.add(refreshRow);
 
-        // Always on Top
+       
         const alwaysOnTopRow = new Adw.ActionRow({
             title: 'Always Show Above Windows',
             subtitle: 'Keep hadith above windows (default: false, stays on desktop)',
@@ -123,13 +123,13 @@ export default class HadithPreferences extends ExtensionPreferences {
         alwaysOnTopRow.activatable_widget = alwaysOnTopSwitch;
         displayGroup.add(alwaysOnTopRow);
 
-        // Appearance Settings
+       
         const appearanceGroup = new Adw.PreferencesGroup({
             title: 'Appearance',
         });
         displayPage.add(appearanceGroup);
 
-        // Font Size
+       
         const fontSizeRow = new Adw.ActionRow({
             title: 'Font Size',
             subtitle: 'Size of the hadith text',
@@ -148,7 +148,7 @@ export default class HadithPreferences extends ExtensionPreferences {
         fontSizeRow.add_suffix(fontSizeSpin);
         appearanceGroup.add(fontSizeRow);
 
-        // Maximum Width
+       
         const maxWidthRow = new Adw.ActionRow({
             title: 'Maximum Width',
             subtitle: 'Maximum width of hadith display (400-2000 pixels)',
@@ -167,7 +167,7 @@ export default class HadithPreferences extends ExtensionPreferences {
         maxWidthRow.add_suffix(maxWidthSpin);
         appearanceGroup.add(maxWidthRow);
 
-        // Background Opacity
+       
         const opacityRow = new Adw.ActionRow({
             title: 'Background Opacity',
             subtitle: 'Transparency of the background (0 = transparent, 1 = opaque)',
@@ -191,14 +191,14 @@ export default class HadithPreferences extends ExtensionPreferences {
         appearanceGroup.add(opacityRow);
         opacityRow.add_suffix(opacityScale);
 
-        // Color Settings Group
+       
         const colorGroup = new Adw.PreferencesGroup({
             title: 'Colors',
             description: 'Customize colors for background and each language',
         });
         displayPage.add(colorGroup);
 
-        // Background Color
+       
         const bgColorRow = new Adw.ActionRow({
             title: 'Background Color',
             subtitle: 'Color of the hadith display background',
@@ -210,7 +210,7 @@ export default class HadithPreferences extends ExtensionPreferences {
         bgColorRow.add_suffix(bgColorButton);
         colorGroup.add(bgColorRow);
 
-        // Arabic Background Color
+       
         const arabicBgColorRow = new Adw.ActionRow({
             title: 'Arabic Text Background Color',
             subtitle: 'Background color behind Arabic text',
@@ -222,10 +222,10 @@ export default class HadithPreferences extends ExtensionPreferences {
         arabicBgColorRow.add_suffix(arabicBgColorButton);
         colorGroup.add(arabicBgColorRow);
 
-        // Note: Arabic text color setting removed - Arabic text appears in default color (black)
-        // due to GNOME Shell theme CSS override on first line
+       
+       
 
-        // Turkish Color
+       
         const turkishColorRow = new Adw.ActionRow({
             title: 'Turkish Text Color',
             subtitle: 'Color for Turkish text',
@@ -237,7 +237,7 @@ export default class HadithPreferences extends ExtensionPreferences {
         turkishColorRow.add_suffix(turkishColorButton);
         colorGroup.add(turkishColorRow);
 
-        // English Color
+       
         const englishColorRow = new Adw.ActionRow({
             title: 'English Text Color',
             subtitle: 'Color for English text',
@@ -249,7 +249,7 @@ export default class HadithPreferences extends ExtensionPreferences {
         englishColorRow.add_suffix(englishColorButton);
         colorGroup.add(englishColorRow);
 
-        // German Color
+       
         const germanColorRow = new Adw.ActionRow({
             title: 'German Text Color',
             subtitle: 'Color for German text',
@@ -261,7 +261,7 @@ export default class HadithPreferences extends ExtensionPreferences {
         germanColorRow.add_suffix(germanColorButton);
         colorGroup.add(germanColorRow);
 
-        // French Color
+       
         const frenchColorRow = new Adw.ActionRow({
             title: 'French Text Color',
             subtitle: 'Color for French text',
@@ -273,7 +273,7 @@ export default class HadithPreferences extends ExtensionPreferences {
         frenchColorRow.add_suffix(frenchColorButton);
         colorGroup.add(frenchColorRow);
 
-        // Source/Narrator Color
+       
         const sourceColorRow = new Adw.ActionRow({
             title: 'Source/Narrator Color',
             subtitle: 'Color for source and narrator information',
@@ -285,14 +285,14 @@ export default class HadithPreferences extends ExtensionPreferences {
         sourceColorRow.add_suffix(sourceColorButton);
         colorGroup.add(sourceColorRow);
 
-        // Position Settings
+       
         const positionGroup = new Adw.PreferencesGroup({
             title: 'Position',
             description: 'Set the position of the hadith on your desktop',
         });
         displayPage.add(positionGroup);
 
-        // Position X
+       
         const posXRow = new Adw.ActionRow({
             title: 'Horizontal Position (X)',
         });
@@ -310,7 +310,7 @@ export default class HadithPreferences extends ExtensionPreferences {
         posXRow.add_suffix(posXSpin);
         positionGroup.add(posXRow);
 
-        // Position Y
+       
         const posYRow = new Adw.ActionRow({
             title: 'Vertical Position (Y)',
         });
@@ -347,12 +347,12 @@ export default class HadithPreferences extends ExtensionPreferences {
     }
 
     _bindColorButton(settings, key, colorButton) {
-        // Set initial color from settings
+       
         const hexColor = settings.get_string(key);
         const rgba = this._hexToRgba(hexColor);
         colorButton.set_rgba(rgba);
 
-        // Connect color button to settings
+       
         colorButton.connect('color-set', () => {
             const rgba = colorButton.get_rgba();
             const hex = this._rgbaToHex(rgba);
